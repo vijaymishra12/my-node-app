@@ -9,9 +9,16 @@ pipeline {
             }
         }
 
+        stage('Check Node and npm') {
+            steps {
+                bat 'node --version'
+                bat 'npm --version'
+            }
+        }
+
         stage('Install Dependencies') {
             steps {
-                sh 'npm ci'
+                bat 'npm ci'
             }
         }
 
@@ -23,7 +30,7 @@ pipeline {
                         variable: 'SNYK_TOKEN'
                     )
                 ]) {
-                    sh 'npx --yes snyk test'
+                    bat 'npx --yes snyk test'
                 }
             }
         }
